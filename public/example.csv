@@ -1,4 +1,4 @@
-FirstN, LName, UCID
-Sunitha, Giri, sg397
-Ava, Jackson, aj352
-John, Abraham, ja923
+FirstN, LName, UCID, AGE, GENDER
+Sunitha, Giri, sg397, 35, F
+Ava, Jackson, aj352, 24, F
+John, Abraham, ja923, 22, M

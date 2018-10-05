@@ -29,9 +29,26 @@ class main {
 class html{
     public static function generateTable($records){
 
+       // $props = get_object_vars($records);
+        $count = 0;
         foreach($records as $record){
-            $array = $record->returnArray();
-             print_r($array);
+
+            if($count==0){
+
+                $array = $record->returnArray($record);
+                $fields = array_keys($array);
+                $values = array_values($array);
+                print_r($fields);
+                print_r($values);
+
+            } else {
+                $array = $record->returnArray($record);
+                $values = array_values($array);
+                print_r($values);
+
+            }
+            $count++;
+
         }
     }
 
@@ -41,7 +58,6 @@ class csv{
     public static function getRecords($filename){
         $file = fopen (  $filename, "r");
         $fieldNames = array();
-        $record = array();
         $count =0;
         while ( ! feof($file)){
 

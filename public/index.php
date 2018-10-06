@@ -52,12 +52,10 @@ class html{
         foreach($records as $record){
             
                 $array = $record->returnArray($record);
-
                 /* Using just first record to get the fields/ Table Header names */
                 if($count==0){
 
                     $fields = array_keys($array);
-
                     /* Using count = -1 to represent Header row in the table. */
                     $rowStr .= html::populateTableRow($fields, -1);
 
@@ -66,10 +64,15 @@ class html{
                 /* reading rows from every record */
                 $values = array_values($array);
 
-                /* count is used to identify odd/even row to set the css styles */
-                $rowStr .= html::populateTableRow($values, $count);
+               //empty row handling
+                if(sizeof($values) >0){
 
-                $count++;
+                    /* count is used to identify odd/even row to set the css styles */
+                    $rowStr .= html::populateTableRow($values, $count);
+
+                    $count++;
+
+                }
 
         }
 

@@ -1,3 +1,7 @@
+<style>
+    <?php include 'stylesheets/main.css'; ?>
+</style>
+
 <?php
 /**
  * Created by PhpStorm.
@@ -5,6 +9,7 @@
  * Date: 10/1/18
  * Time: 10:11 PM
  */
+
 
 
 main::start("example.csv");
@@ -29,29 +34,62 @@ class main {
 class html{
     public static function generateTable($records){
 
-       // $props = get_object_vars($records);
         $count = 0;
-        foreach($records as $record){
+        $rows = array();
 
+        foreach($records as $record){
+            
             if($count==0){
 
                 $array = $record->returnArray($record);
                 $fields = array_keys($array);
                 $values = array_values($array);
-                print_r($fields);
-                print_r($values);
+
+                //Header row
+                $cells = array();
+
+                foreach($fields as $cell){
+                    $cells[] = "<th> {$cell} </th>";
+                }
+                $rows[] = "<tr class='tableheader'>". implode('', $cells). "</tr>";
+
+                $cells = array();
+                //First Row
+                foreach($values as $cell){
+                    $cells[] = "<td> {$cell} </td>";
+                }
+                $rowClass = ($count%2==0)? "even" : "odd";
+                $rows[] = "<tr class= {$rowClass} >" . implode('', $cells). "</tr>";
+
 
             } else {
+
                 $array = $record->returnArray($record);
                 $values = array_values($array);
-                print_r($values);
+                //print_r($values);
+                $cells = array();
+
+                //table rows
+                foreach($values as $cell){
+                    $cells[] = "<td> {$cell} </td>";
+                }
+                $rowClass = ($count%2==0)? "even" : "odd";
+                $rows[] = "<tr class={$rowClass}>". implode('', $cells). "</tr>";
+
 
             }
             $count++;
 
         }
+        echo "<div> 
+                    <table id='csv'>". implode('',$rows). "</table>
+              </div>";
     }
 
+    public function populateTableRow($values) {
+        /* need to implement DRY */
+
+    }
 }
 
 class csv{

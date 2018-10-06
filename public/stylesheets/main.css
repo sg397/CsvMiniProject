@@ -1,0 +1,30 @@
+#csv{
+  width: 90%;
+  padding-top: 50px;
+  padding-left: 5%;
+  padding-right: 5px;
+}
+
+th {
+  background-color: #206cad;
+  padding-top:10px;
+  padding-bottom:10px;
+  color: white;
+  font-weight:bold;
+}
+td{
+  text-align: left;
+  padding-top:5px;
+  padding-bottom:5px;
+  padding-left:10px;
+
+}
+.odd {
+  background: #e4dcdc;
+}
+.even {
+  background: #fff;
+}
+tr:hover{
+  background-color: #b2beff;
+}

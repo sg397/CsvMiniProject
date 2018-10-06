@@ -32,62 +32,49 @@ class main {
 }
 
 class html{
-    public static function generateTable($records){
+    public  function generateTable($records){
 
         $count = 0;
-        $rows = array();
-
+        $rowStr ='';
         foreach($records as $record){
             
-            if($count==0){
-
                 $array = $record->returnArray($record);
-                $fields = array_keys($array);
+
+                if($count==0){
+                    $fields = array_keys($array);
+                    $rowStr .= html::populateTableRow($fields, -1);
+
+
+                }
+
                 $values = array_values($array);
-
-                //Header row
-                $cells = array();
-
-                foreach($fields as $cell){
-                    $cells[] = "<th> {$cell} </th>";
-                }
-                $rows[] = "<tr class='tableheader'>". implode('', $cells). "</tr>";
-
-                $cells = array();
-                //First Row
-                foreach($values as $cell){
-                    $cells[] = "<td> {$cell} </td>";
-                }
-                $rowClass = ($count%2==0)? "even" : "odd";
-                $rows[] = "<tr class= {$rowClass} >" . implode('', $cells). "</tr>";
-
-
-            } else {
-
-                $array = $record->returnArray($record);
-                $values = array_values($array);
-                //print_r($values);
-                $cells = array();
-
-                //table rows
-                foreach($values as $cell){
-                    $cells[] = "<td> {$cell} </td>";
-                }
-                $rowClass = ($count%2==0)? "even" : "odd";
-                $rows[] = "<tr class={$rowClass}>". implode('', $cells). "</tr>";
-
-
-            }
-            $count++;
+                $rowStr .= html::populateTableRow($values, $count);
+                $count++;
 
         }
         echo "<div> 
-                    <table id='csv'>". implode('',$rows). "</table>
+                    <table id='csv'>". $rowStr. "</table>
               </div>";
     }
 
-    public function populateTableRow($values) {
-        /* need to implement DRY */
+    public function populateTableRow(Array $values, $count) {
+
+        $cells = array();
+
+        foreach($values as $cell){
+
+            if($count <0){
+                $cells[] = "<th> {$cell} </th>";
+            }else{
+                $cells[] = "<td> {$cell} </td>";
+            }
+
+        }
+        $rowClass = ($count%2==0)? "even" : "odd";
+
+        $rows[] = "<tr class={$rowClass}>". implode('', $cells). "</tr>";
+
+        return implode('', $rows) ;
 
     }
 }
@@ -133,7 +120,7 @@ class record {
         $array = (array) $this;
         return $array;
     }
-    public function createProperty($name= "NAME", $value="VALUE") {
+    public function createProperty($name= null, $value=null) {
         $this->{$name} = $value;
 
     }

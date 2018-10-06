@@ -1,10 +1,15 @@
+html{
+  padding-top: 30px;
+}
 #csv{
   width: 90%;
-  padding-top: 50px;
-  padding-left: 5%;
-  padding-right: 5px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sanns-serif;
+  border: 1px solid #cec2c2;
 }
-
+div{
+  padding-left: 10%;
+  padding-right: 10%;
+}
 th {
   background-color: #206cad;
   padding-top:10px;

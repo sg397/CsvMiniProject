@@ -1,7 +1,20 @@
-<style>
-    <?php include 'stylesheets/main.css'; ?>
-</style>
 
+<html>
+    <head>
+
+        <title>Csv Mini Project</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css">
+
+    </head>
+    <body>
+        <div class="container">
+
+            <?php main::start("example.csv"); ?>
+
+        </div>
+    </body>
+</html>
 <?php
 /**
  * Created by PhpStorm.
@@ -10,9 +23,7 @@
  * Time: 10:11 PM
  */
 
-
-
-main::start("example.csv");
+//main::start("example.csv");
 
 /**
  * classname: main
@@ -63,7 +74,7 @@ class html{
         }
 
         /*printing the HTML table*/
-        echo "<div> <table id='csv'>". $rowStr. "</table> </div>";
+        echo " <table id='csv' class='table .table-striped .table-bordered'> <tbody>". $rowStr. "</tbody></table> ";
     }
 
 
@@ -76,6 +87,10 @@ class html{
     public function populateTableRow(Array $values, $count) {
 
         $cells = array();
+        $rowNum = $count+1;
+
+        //This adds the row numbers based on number on csv record count
+        ($count <0) ? $cells[] = "<th> # </th>" : $cells[] = "<td> $rowNum</td>";
 
         foreach($values as $cell){
 
@@ -91,7 +106,7 @@ class html{
         /* setting css class for odd/even rows */
         $rowClass = ($count%2==0)? "even" : "odd";
 
-        $rows[] = "<tr class={$rowClass}>". implode('', $cells). "</tr>";
+        $rows[] = "<tr class='$rowClass'>". implode('', $cells). "</tr>";
 
         return implode('', $rows) ;
 
@@ -162,4 +177,4 @@ class recordFactory {
 
 }
 
-
+?>

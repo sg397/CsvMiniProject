@@ -1,6 +1,6 @@
-FirstN, LName, UCID, AGE, GENDER
-Sunitha, Giri, sg886, 35, F
-Ava, Jackson, aj352, 24, F
-John, Abraham, ja923, 22, M
-Jimmy, Rodger, jr534, 38, M
-Allison, McLand, am543, 40, F
+First Name, Last Name, UCID, Age, Gender, City, State
+Sunitha, Giridipudi, sg886, 35, F, Newark, NJ
+Ava, Jackson, aj352, 24, F, Atlanta, GA
+John, Abraham, ja923, 22, M, Houston, TX
+Jimmy, Rodger, jr534, 38, M, San Fransisco, CA
+Allison, McLand, am543, 40, F, Baltimore, MD

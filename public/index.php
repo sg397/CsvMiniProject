@@ -23,7 +23,6 @@
  * Time: 10:11 PM
  */
 
-//main::start("example.csv");
 
 /**
  * classname: main
@@ -37,14 +36,16 @@ class main {
 
         $records = csv::getRecords($filename);
 
-        $table = html::generateTable($records);
+        $tableStr = html::generateTable($records);
+
+        html::printTable( $tableStr);
 
     }
 }
 
 class html{
 
-    public  function generateTable($records){
+    public function generateTable($records){
 
         $count = 0;
         $rowStr ='';
@@ -52,23 +53,23 @@ class html{
         foreach($records as $record){
             
                 $array = $record->returnArray($record);
-                /* Using just first record to get the fields/ Table Header names */
+
                 if($count==0){
-
+                    /* creating html table header row  */
                     $fields = array_keys($array);
-                    /* Using count = -1 to represent Header row in the table. */
-                    $rowStr .= html::populateTableRow($fields, -1);
-
+                    $rowStr .= '<tr><th>' .implode('</th><th>', $fields) .'</tr>';
                 }
 
-                /* reading rows from every record */
+                /* creating html table rows for every record object 0,1,2..n */
                 $values = array_values($array);
 
-               //empty row handling
+                //empty row handling
                 if(sizeof($values) >0){
 
-                    /* count is used to identify odd/even row to set the css styles */
-                    $rowStr .= html::populateTableRow($values, $count);
+                    /* setting css class for odd/even rows */
+                    $rowClass = ($count%2==0)? "even" : "odd";
+
+                    $rowStr .= "<tr class='$rowClass'><td>" .implode('</td><td>', $values) ."</tr>";
 
                     $count++;
 
@@ -76,44 +77,15 @@ class html{
 
         }
 
-        /*printing the HTML table*/
+        return $rowStr;
+    }
+
+    public function printTable($rowStr){
+
         echo " <table id='csv' class='table .table-striped .table-bordered'> <tbody>". $rowStr. "</tbody></table> ";
-    }
-
-
-
-    /**
-     * function: populateTableRow
-     * inputs : Array of record values, line count
-     * output: html table row as string
-     * */
-    public function populateTableRow(Array $values, $count) {
-
-        $cells = array();
-        $rowNum = $count+1;
-
-        //This adds the row numbers based on number on csv record count
-        ($count <0) ? $cells[] = "<th> # </th>" : $cells[] = "<td> $rowNum</td>";
-
-        foreach($values as $cell){
-
-            if($count <0){
-                /* this is header row, setting <th> */
-                $cells[] = "<th> {$cell} </th>";
-            }else{
-                $cells[] = "<td> {$cell} </td>";
-            }
-
-        }
-
-        /* setting css class for odd/even rows */
-        $rowClass = ($count%2==0)? "even" : "odd";
-
-        $rows[] = "<tr class='$rowClass'>". implode('', $cells). "</tr>";
-
-        return implode('', $rows) ;
 
     }
+
 }
 
 class csv{
